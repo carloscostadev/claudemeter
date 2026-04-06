@@ -3,14 +3,14 @@ set -e
 
 APP_NAME="ClaudeMeter"
 BUILD_DIR="build"
+APP_BUNDLE="$BUILD_DIR/$APP_NAME.app"
 
-echo "Building $APP_NAME..."
-swift build -c release
+echo "Building $APP_NAME (debug)..."
+swift build
 
-BIN_PATH=$(swift build -c release --show-bin-path)
+BIN_PATH=$(swift build --show-bin-path)
 
 # Create .app bundle
-APP_BUNDLE="$BUILD_DIR/$APP_NAME.app"
 rm -rf "$APP_BUNDLE"
 mkdir -p "$APP_BUNDLE/Contents/MacOS"
 mkdir -p "$APP_BUNDLE/Contents/Resources"
@@ -42,9 +42,11 @@ cat > "$APP_BUNDLE/Contents/Info.plist" << PLIST
 </plist>
 PLIST
 
-echo ""
-echo "Built successfully: $APP_BUNDLE"
-echo ""
-echo "To install:"
-echo "  cp -R $APP_BUNDLE /Applications/"
-echo "  open /Applications/$APP_NAME.app"
+# Kill running instance, install, relaunch
+echo "Restarting $APP_NAME..."
+pkill -x "$APP_NAME" 2>/dev/null || true
+sleep 0.5
+cp -R "$APP_BUNDLE" /Applications/
+open "/Applications/$APP_NAME.app"
+
+echo "Done! $APP_NAME is running."
