@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build release
+        run: |
+          swift build -c release
+          BIN_PATH=$(swift build -c release --show-bin-path)
+
+          APP_NAME="ClaudeMeter"
+          APP_BUNDLE="$APP_NAME.app"
+
+          mkdir -p "$APP_BUNDLE/Contents/MacOS"
+          mkdir -p "$APP_BUNDLE/Contents/Resources"
+          cp "$BIN_PATH/$APP_NAME" "$APP_BUNDLE/Contents/MacOS/"
+
+          # Extract version from tag
+          VERSION=${GITHUB_REF_NAME#v}
+
+          cat > "$APP_BUNDLE/Contents/Info.plist" << PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>CFBundleName</key>
+              <string>$APP_NAME</string>
+              <key>CFBundleIdentifier</key>
+              <string>com.carloscosta.claudemeter</string>
+              <key>CFBundleVersion</key>
+              <string>$VERSION</string>
+              <key>CFBundleShortVersionString</key>
+              <string>$VERSION</string>
+              <key>CFBundleExecutable</key>
+              <string>$APP_NAME</string>
+              <key>LSMinimumSystemVersion</key>
+              <string>14.0</string>
+              <key>LSUIElement</key>
+              <true/>
+              <key>CFBundlePackageType</key>
+              <string>APPL</string>
+          </dict>
+          </plist>
+          PLIST
+
+          ditto -c -k --keepParent "$APP_BUNDLE" "$APP_NAME-$VERSION-mac.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ClaudeMeter-*-mac.zip
+          generate_release_notes: true
