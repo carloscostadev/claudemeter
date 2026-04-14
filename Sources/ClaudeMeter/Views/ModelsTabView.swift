@@ -45,7 +45,7 @@ struct ModelsTabView: View {
             .frame(height: 6)
 
             HStack {
-                Text(formatTokens(entry.totalTokens) + " tokens")
+                Text("\(formatTokens(entry.totalTokens)) tokens · \(entry.sessionCount) sessions")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()

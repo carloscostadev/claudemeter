@@ -25,9 +25,9 @@ enum ActivityState: String, CaseIterable {
         }
     }
 
-    static func from(burnRate: Double) -> ActivityState {
+    static func from(burnRate: Double, hasActiveSessions: Bool = false) -> ActivityState {
         switch burnRate {
-        case 0: return .sleep
+        case 0: return hasActiveSessions ? .idle : .sleep
         case ..<100: return .idle
         case ..<1000: return .active
         default: return .sprint

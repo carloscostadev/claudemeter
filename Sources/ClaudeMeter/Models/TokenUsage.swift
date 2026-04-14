@@ -60,6 +60,12 @@ struct ModelUsageEntry: Identifiable {
 struct ModelUsageAggregator {
     private(set) var entries: [ModelUsageEntry] = []
 
+    mutating func incrementSessionCount(for model: String) {
+        if let idx = entries.firstIndex(where: { $0.modelId == model }) {
+            entries[idx].sessionCount += 1
+        }
+    }
+
     mutating func add(usage: TokenUsage, model: String) {
         if let idx = entries.firstIndex(where: { $0.modelId == model }) {
             entries[idx].inputTokens += usage.inputTokens

@@ -26,14 +26,10 @@ struct MenuBarLabel: View {
     let service: ClaudeDataService
 
     var body: some View {
-        HStack(spacing: 4) {
-            Image(systemName: "sparkle")
-                .symbolEffect(.pulse, options: .repeating, isActive: service.burnRateTracker.activityState != .sleep)
-            Text(service.formattedCost)
-                .font(.system(.caption, design: .monospaced))
-        }
-        .onAppear {
-            service.start()
-        }
+        Image(systemName: "sparkle")
+            .symbolEffect(.pulse, options: .repeating, isActive: service.activityState != .sleep)
+            .onAppear {
+                service.start()
+            }
     }
 }

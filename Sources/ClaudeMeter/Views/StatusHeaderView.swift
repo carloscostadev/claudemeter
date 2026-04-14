@@ -4,6 +4,7 @@ struct StatusHeaderView: View {
     let activityState: ActivityState
     let burnRate: String
     let isConnected: Bool
+    let todayCost: String
 
     var body: some View {
         VStack(spacing: 0) {
@@ -36,6 +37,14 @@ struct StatusHeaderView: View {
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("Today")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                    Text(todayCost)
+                        .font(.system(.body, design: .monospaced).bold())
+                        .foregroundStyle(.orange)
+                }
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 12)
