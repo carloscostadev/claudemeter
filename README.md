@@ -1,14 +1,18 @@
 # ClaudeMeter
 
-A macOS menu bar app that tracks your Claude API usage in real time — tokens, cost, sessions, and burn rate.
+A lightweight macOS menu bar app that tracks your Claude Code usage in real time — tokens, costs, activity breakdown, and burn rate.
 
 ## Features
 
-- Real-time token and cost tracking
-- Burn rate monitoring (tokens/second)
-- Session history with project grouping
-- Model breakdown with usage percentages
-- Launch at login support
+- **Activity Tracking** — see what you spend on Conversation, Coding, Exploration, Terminal, Planning, and Design
+- **Real-time burn rate** — tokens/second with activity states (Sleeping, Idle, Active, Sprinting)
+- **Model breakdown** — cost and token usage per model (Opus, Sonnet, Haiku)
+- **Period summaries** — quick view of 7 Days, 15 Days, and Monthly totals
+- **Launch at login** — starts automatically with macOS
+
+## How It Works
+
+ClaudeMeter reads session data from `~/.claude/` — the same files Claude Code writes locally. No API keys or network requests needed. All data stays on your machine.
 
 ## Install
 
@@ -28,3 +32,7 @@ open Package.swift
 
 - macOS 14.0+
 - Xcode 15+ (for development)
+
+## License
+
+MIT
