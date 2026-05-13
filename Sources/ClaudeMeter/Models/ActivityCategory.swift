@@ -77,6 +77,19 @@ struct ActivityAggregator {
         }
     }
 
+    mutating func merge(_ other: ActivityAggregator) {
+        for (category, entry) in other.entries {
+            if var existing = entries[category] {
+                existing.cost += entry.cost
+                existing.turns += entry.turns
+                existing.tokens += entry.tokens
+                entries[category] = existing
+            } else {
+                entries[category] = entry
+            }
+        }
+    }
+
     var sortedEntries: [ActivityEntry] {
         entries.values.sorted { $0.cost > $1.cost }
     }
