@@ -69,6 +69,17 @@ struct ProjectGroup: Identifiable, Hashable {
         return path
     }
 
+    /// Extract the group name from a real filesystem path (no encoding tricks).
+    /// Uses the first segment after `Documents/` when present, falling back to the last segment.
+    static func groupName(fromRealPath path: String) -> String {
+        let components = path.split(separator: "/").map(String.init)
+        if let docIdx = components.firstIndex(of: "Documents"),
+           docIdx + 1 < components.count {
+            return components[docIdx + 1]
+        }
+        return components.last ?? "Unknown"
+    }
+
     /// Extract the group name (first directory after Documents/) from a decoded path.
     static func groupName(from decodedPath: String) -> String {
         let components = decodedPath.split(separator: "/").map(String.init)

@@ -53,7 +53,10 @@ struct ModelUsageEntry: Identifiable {
     }
 
     var displayName: String {
-        ModelPricing.forModel(modelId)?.displayName ?? modelId
+        if modelId.hasPrefix("claude-") {
+            return String(modelId.dropFirst("claude-".count))
+        }
+        return modelId
     }
 }
 

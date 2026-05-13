@@ -24,9 +24,29 @@ struct ModelPricing {
     }
 
     static let all: [ModelPricing] = [
+        // Opus pricing is identical across 4-6 and 4-7 per Anthropic's current rate card.
+        // Listed explicitly so that a future price change for one version won't affect the other.
+        ModelPricing(
+            modelPrefix: "claude-opus-4-7",
+            displayName: "opus-4-7",
+            inputPerMillion: 15.0,
+            outputPerMillion: 75.0,
+            cacheReadPerMillion: 1.50,
+            cacheWritePerMillion: 18.75,
+            color: "#FF00FF"
+        ),
+        ModelPricing(
+            modelPrefix: "claude-opus-4-6",
+            displayName: "opus-4-6",
+            inputPerMillion: 15.0,
+            outputPerMillion: 75.0,
+            cacheReadPerMillion: 1.50,
+            cacheWritePerMillion: 18.75,
+            color: "#FF00FF"
+        ),
         ModelPricing(
             modelPrefix: "claude-opus-4",
-            displayName: "opus-4-6",
+            displayName: "opus-4",
             inputPerMillion: 15.0,
             outputPerMillion: 75.0,
             cacheReadPerMillion: 1.50,
@@ -54,6 +74,7 @@ struct ModelPricing {
     ]
 
     static func forModel(_ modelId: String) -> ModelPricing? {
+        // Specific prefixes (e.g. claude-opus-4-7) come before generic (claude-opus-4).
         all.first { modelId.hasPrefix($0.modelPrefix) }
     }
 }
