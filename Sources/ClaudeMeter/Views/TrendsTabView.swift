@@ -54,7 +54,7 @@ private func savedPct(_ service: ClaudeDataService) -> Double {
 }
 
 struct DailyCostChartView: View {
-    let series: [(date: Date, cost: Double)]
+    let series: [(date: Date, cost: Double, tokens: Int)]
     @State private var selectedIndex: Int? = nil
 
     private var maxCost: Double {
@@ -73,7 +73,8 @@ struct DailyCostChartView: View {
                     .foregroundStyle(.secondary)
                 Spacer()
                 if let idx = selectedIndex, idx < series.count {
-                    Text("\(longDate(series[idx].date))  ·  \(String(format: "$%.2f", series[idx].cost))")
+                    let point = series[idx]
+                    Text("\(longDate(point.date))  ·  \(String(format: "$%.2f", point.cost))  ·  \(ClaudeDataService.formatTokens(point.tokens)) tok")
                         .font(.system(.caption, design: .monospaced).bold())
                         .foregroundStyle(.orange)
                 } else {
@@ -99,7 +100,7 @@ struct DailyCostChartView: View {
                                 .frame(width: barWidth, height: max(h, 1))
                         }
                         .buttonStyle(.plain)
-                        .help("\(longDate(point.date)) — \(String(format: "$%.2f", point.cost))")
+                        .help("\(longDate(point.date)) — \(String(format: "$%.2f", point.cost)) — \(ClaudeDataService.formatTokens(point.tokens)) tok")
                     }
                 }
             }

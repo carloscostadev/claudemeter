@@ -51,7 +51,7 @@ final class ClaudeDataService {
     var allTimeTokens: Int = 0
 
     // Analytics
-    var dailyCostSeries: [(date: Date, cost: Double)] = [] // last 30 days, oldest first
+    var dailyCostSeries: [(date: Date, cost: Double, tokens: Int)] = [] // last 30 days, oldest first
     var projectedMonthCost: Double = 0
     var cacheHitRate: Double = 0 // 0..1
     var cacheSavings: Double = 0 // $ saved vs no-cache pricing
@@ -204,6 +204,7 @@ final class ClaudeDataService {
         var mCost = 0.0, mCalls = 0, mTokens = 0
         var aCost = 0.0, aCalls = 0, aTokens = 0
         var dayCosts: [Date: Double] = [:]
+        var dayTokens: [Date: Int] = [:]
         var totalCacheRead = 0
         var totalInput = 0
         var savings = 0.0
@@ -238,7 +239,10 @@ final class ClaudeDataService {
                 if day >= monthStart { mCost += stats.cost; mCalls += stats.calls; mTokens += stats.tokens }
                 if day >= fifteenStart { fCost += stats.cost; fCalls += stats.calls; fTokens += stats.tokens }
                 if day >= weekStart { wCost += stats.cost; wCalls += stats.calls; wTokens += stats.tokens }
-                if day >= windowStart { dayCosts[day, default: 0] += stats.cost }
+                if day >= windowStart {
+                    dayCosts[day, default: 0] += stats.cost
+                    dayTokens[day, default: 0] += stats.tokens
+                }
             }
 
             totalCacheRead += cache.totalCacheRead
@@ -253,18 +257,18 @@ final class ClaudeDataService {
             }
         }
 
-        var series: [(Date, Double)] = []
+        var series: [(date: Date, cost: Double, tokens: Int)] = []
         for offset in 0..<30 {
             guard let day = cal.date(byAdding: .day, value: offset, to: windowStart) else { continue }
-            series.append((day, dayCosts[day] ?? 0))
+            series.append((day, dayCosts[day] ?? 0, dayTokens[day] ?? 0))
         }
 
-        let last7 = series.suffix(7).map { $0.1 }.reduce(0, +) / 7.0
+        let last7 = series.suffix(7).map { $0.cost }.reduce(0, +) / 7.0
         let monthRange = cal.range(of: .day, in: .month, for: Date()) ?? 1..<31
         let dayOfMonth = cal.component(.day, from: Date())
         let remaining = max(0, monthRange.upperBound - dayOfMonth - 1)
-        let monthToDate = series.reduce(0.0) { acc, pair in
-            cal.isDate(pair.0, equalTo: Date(), toGranularity: .month) ? acc + pair.1 : acc
+        let monthToDate = series.reduce(0.0) { acc, point in
+            cal.isDate(point.date, equalTo: Date(), toGranularity: .month) ? acc + point.cost : acc
         }
         let projection = monthToDate + last7 * Double(remaining)
 
