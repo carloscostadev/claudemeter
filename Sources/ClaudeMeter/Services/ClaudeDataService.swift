@@ -164,10 +164,7 @@ final class ClaudeDataService {
             let heuristicGroupName = ProjectGroup.groupName(from: decoded)
 
             let dirPath = projectsDir + "/" + dir
-            guard let files = try? FileManager.default.contentsOfDirectory(atPath: dirPath) else { continue }
-
-            for file in files where file.hasSuffix(".jsonl") {
-                let filePath = dirPath + "/" + file
+            for filePath in enumerateJSONLs(in: dirPath) {
                 seenFiles.insert(filePath)
 
                 guard let attrs = try? FileManager.default.attributesOfItem(atPath: filePath),
@@ -444,10 +441,9 @@ final class ClaudeDataService {
                 .replacingOccurrences(of: "/", with: "-")
             let dirPath = claudeDir + "/projects/" + encodedCwd
 
-            guard let files = try? FileManager.default.contentsOfDirectory(atPath: dirPath) else { continue }
-
-            for file in files where file.hasSuffix(".jsonl") && file.contains(session.sessionId) {
-                let filePath = dirPath + "/" + file
+            // Match both `<sessionId>.jsonl` (main transcript) and `<sessionId>/subagents/*.jsonl`
+            // (Agent-tool sub-runs) — both contain the session id somewhere in the path.
+            for filePath in enumerateJSONLs(in: dirPath) where filePath.contains(session.sessionId) {
                 let offset = fileOffsets[filePath] ?? 0
                 let (usages, newOffset) = parseJSONL(at: filePath, fromOffset: offset)
                 fileOffsets[filePath] = newOffset
@@ -466,6 +462,20 @@ final class ClaudeDataService {
                 self.burnRateTracker.addSample(tokens: usage.totalTokens, at: sampleAt)
             }
         }
+    }
+
+    /// Returns absolute paths of every `.jsonl` file under `dir`, descending into subdirectories.
+    /// Claude Code stores sub-agent transcripts at `<dir>/<sessionId>/subagents/agent-*.jsonl`,
+    /// so a one-level scan misses the majority of usage data on heavy users of the Agent tool.
+    private func enumerateJSONLs(in dir: String) -> [String] {
+        guard let en = FileManager.default.enumerator(atPath: dir) else { return [] }
+        var result: [String] = []
+        while let item = en.nextObject() as? String {
+            if item.hasSuffix(".jsonl") {
+                result.append(dir + "/" + item)
+            }
+        }
+        return result
     }
 
     private static let isoFormatter: ISO8601DateFormatter = {
@@ -500,10 +510,7 @@ final class ClaudeDataService {
                 if dirGroup != group { continue }
             }
             let dirPath = projectsDir + "/" + dir
-            guard let files = try? FileManager.default.contentsOfDirectory(atPath: dirPath) else { continue }
-            for file in files where file.hasSuffix(".jsonl") {
-                let filePath = dirPath + "/" + file
-
+            for filePath in enumerateJSONLs(in: dirPath) {
                 guard let attrs = try? FileManager.default.attributesOfItem(atPath: filePath),
                       let mtime = attrs[.modificationDate] as? Date else { continue }
 
