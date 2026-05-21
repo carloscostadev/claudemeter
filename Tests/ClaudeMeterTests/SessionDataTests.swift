@@ -23,11 +23,11 @@ import Foundation
 }
 
 @Test func projectNameFromCwd() {
-    let session = SessionData(pid: 1, sessionId: "x", cwd: "/Users/test/Documents/Importrust/dashboard", startedAt: 0, kind: "interactive", entrypoint: "cli")
+    let session = SessionData(pid: 1, sessionId: "x", cwd: "/Users/test/Documents/Acme/dashboard", startedAt: 0, kind: "interactive", entrypoint: "cli")
     #expect(session.projectName == "dashboard")
 }
 
 @Test func projectGroupFromCwd() {
-    let session = SessionData(pid: 1, sessionId: "x", cwd: "/Users/test/Documents/Importrust/dashboard", startedAt: 0, kind: "interactive", entrypoint: "cli")
-    #expect(session.projectGroup == "Importrust")
+    let session = SessionData(pid: 1, sessionId: "x", cwd: "/Users/test/Documents/Acme/dashboard", startedAt: 0, kind: "interactive", entrypoint: "cli")
+    #expect(session.projectGroup == "Acme")
 }

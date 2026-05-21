@@ -10,8 +10,8 @@ struct ProjectGroup: Identifiable, Hashable {
     /// Decode a Claude projects directory name back to a filesystem path.
     ///
     /// The encoding replaces "/" with "-" and prepends "-", so
-    /// "/Users/carloscosta/Documents/Importrust/dashboard-importrust"
-    /// becomes "-Users-carloscosta-Documents-Importrust-dashboard-importrust".
+    /// "/Users/alice/Documents/Acme/dashboard-frontend"
+    /// becomes "-Users-alice-Documents-Acme-dashboard-frontend".
     ///
     /// This implementation uses a heuristic for the common path structure
     /// `/Users/<username>/Documents/<group>/<project>`:
