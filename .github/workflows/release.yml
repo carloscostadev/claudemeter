@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run tests
         run: swift test
@@ -84,7 +84,7 @@ jobs:
           ditto -c -k --keepParent "$APP_BUNDLE" "$APP_NAME-$VERSION-mac.zip"
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: ClaudeMeter-*-mac.zip
           generate_release_notes: true
