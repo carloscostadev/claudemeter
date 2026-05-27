@@ -1,5 +1,11 @@
 # Thoth
 
+[![Latest Release](https://img.shields.io/github/v/release/carloscostadev/thoth)](https://github.com/carloscostadev/thoth/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/carloscostadev/thoth/total)](https://github.com/carloscostadev/thoth/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-macOS%2014%2B-lightgrey)
+![Swift](https://img.shields.io/badge/swift-5.9-orange)
+
 Named after Thoth, the Egyptian god of writing and measure.
 
 A lightweight macOS menu bar app that turns the JSONL logs Claude Code writes
@@ -8,6 +14,13 @@ project ranking, daily trends and burn rate.
 
 No API keys. No network requests. No telemetry. Everything is read locally
 from `~/.claude/`.
+
+## Quick start
+
+1. Download from [Releases](https://github.com/carloscostadev/thoth/releases/latest)
+2. Drag `Thoth.app` to `/Applications`
+3. Right-click the app and pick **Open** once to bypass Gatekeeper
+4. Click the icon in the menu bar
 
 ## Features
 
