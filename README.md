@@ -1,30 +1,32 @@
 # Thoth
 
-A lightweight macOS menu bar app that turns the JSONL logs Claude Code already
-writes to disk into a live view of your usage — tokens, costs, activity
-breakdown, project ranking, daily trends and burn rate.
+Named after Thoth, the Egyptian god of writing and measure.
 
-No API keys, no network requests, no telemetry. Everything is read locally from
-`~/.claude/`.
+A lightweight macOS menu bar app that turns the JSONL logs Claude Code writes
+to disk into a live view of your usage: tokens, costs, activity breakdown,
+project ranking, daily trends and burn rate.
+
+No API keys. No network requests. No telemetry. Everything is read locally
+from `~/.claude/`.
 
 ## Features
 
-- **Today, this week, this month, all time** — cost, calls and tokens for each
-  window, all on one screen
-- **Live burn rate** — tokens/second with activity states (Sleeping, Light,
-  Active, Sprinting)
-- **Activity breakdown** — what you're actually doing today (Conversation,
+- **Today, this week, this month, all time.** Cost, calls and tokens for each
+  window, all on one screen.
+- **Live burn rate.** Tokens/second with activity states: Sleeping, Light,
+  Active, Sprinting.
+- **Activity breakdown.** What you're actually doing today (Conversation,
   Coding, Exploration, Terminal, Planning, Design), classified from the tools
-  used in each assistant turn
-- **Model breakdown** — per-model cost and token share (Opus, Sonnet, Haiku)
-  with up-to-date pricing including `claude-opus-4-7`
-- **Trends tab** — last-30-days daily cost chart, projected month-end cost, and
-  prompt-cache savings
-- **Projects tab** — top projects by cost (resolved from each session's `cwd`,
-  not just the encoded folder name), plus a weekday × hour heatmap of when you
-  burn the most
-- **Project filter** — slice every number by a single project
-- **Launch at login** — optional, toggled from the popover
+  used in each assistant turn.
+- **Model breakdown.** Per-model cost and token share (Opus, Sonnet, Haiku)
+  with up-to-date pricing including `claude-opus-4-7`.
+- **Trends tab.** Last-30-days daily cost chart, projected month-end cost and
+  prompt-cache savings.
+- **Projects tab.** Top projects by cost (resolved from each session's `cwd`,
+  not just the encoded folder name), plus a weekday × hour heatmap of when
+  you burn the most.
+- **Project filter.** Slice every number by a single project.
+- **Launch at login.** Optional, toggled from the popover.
 
 ## How it works
 
@@ -36,11 +38,11 @@ tree and the `~/.claude/sessions/*.json` heartbeats, aggregates every
 To stay cheap on a large history (the author's local tree is ~450 MB across
 ~600 files), scanning is layered:
 
-- **Active-session poll** every 5 s — reads only bytes appended since the last
+- **Active-session poll** every 5 s. Reads only bytes appended since the last
   poll, on a background queue.
-- **Today summary** every 5 s — per-file incremental cache keyed by mtime;
+- **Today summary** every 5 s. Per-file incremental cache keyed by mtime;
   unchanged files are skipped without I/O.
-- **Heavy scan** every 5 min — per-file aggregate cache keyed by `(mtime,
+- **Heavy scan** every 5 min. Per-file aggregate cache keyed by `(mtime,
   size)`. Files that haven't changed contribute their cached numbers without
   being re-parsed. Period buckets (week / 15d / month) are derived from a
   per-day breakdown at aggregation time, so the calendar can advance without
@@ -52,12 +54,12 @@ the main thread is reserved for SwiftUI updates.
 
 ## Install
 
-Download the latest `.zip` from
-[Releases](https://github.com/carloscostadev/thoth/releases), unzip,
-and drag `Thoth.app` to `/Applications`.
+Download `Thoth-<version>-mac.zip` from
+[Releases](https://github.com/carloscostadev/thoth/releases), unzip it, and
+drag `Thoth.app` to `/Applications`.
 
-The first launch will be quarantined by Gatekeeper because the binary isn't
-notarised — right-click the app and pick **Open** once to bypass it.
+The first launch is quarantined by Gatekeeper because the binary isn't
+notarised. Right-click the app and pick **Open** once to bypass it.
 
 ## Development
 
