@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Models/ProjectGroup.swift
+// Sources/Thoth/Models/ProjectGroup.swift
 import Foundation
 
 struct ProjectGroup: Identifiable, Hashable {

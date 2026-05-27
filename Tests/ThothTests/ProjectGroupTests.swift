@@ -1,6 +1,6 @@
-// Tests/ClaudeMeterTests/ProjectGroupTests.swift
+// Tests/ThothTests/ProjectGroupTests.swift
 import Testing
-@testable import ClaudeMeter
+@testable import Thoth
 
 @Test func decodeProjectPath() {
     let encoded = "-Users-alice-Documents-Acme-dashboard-frontend"

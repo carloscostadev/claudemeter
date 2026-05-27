@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Services/BurnRateTracker.swift
+// Sources/Thoth/Services/BurnRateTracker.swift
 import Foundation
 
 enum ActivityState: String, CaseIterable {

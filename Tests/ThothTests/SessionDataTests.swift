@@ -1,7 +1,7 @@
-// Tests/ClaudeMeterTests/SessionDataTests.swift
+// Tests/ThothTests/SessionDataTests.swift
 import Testing
 import Foundation
-@testable import ClaudeMeter
+@testable import Thoth
 
 @Test func parseSessionJSON() throws {
     let json = """

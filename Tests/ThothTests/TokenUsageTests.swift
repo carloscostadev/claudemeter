@@ -1,7 +1,7 @@
-// Tests/ClaudeMeterTests/TokenUsageTests.swift
+// Tests/ThothTests/TokenUsageTests.swift
 import Testing
 import Foundation
-@testable import ClaudeMeter
+@testable import Thoth
 
 @Test func parseUsageFromJSON() throws {
     let json = """

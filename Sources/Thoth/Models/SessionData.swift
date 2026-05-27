@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Models/SessionData.swift
+// Sources/Thoth/Models/SessionData.swift
 import Foundation
 
 struct SessionData: Codable, Identifiable {

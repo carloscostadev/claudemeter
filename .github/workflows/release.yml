@@ -22,7 +22,7 @@ jobs:
           swift build -c release
           BIN_PATH=$(swift build -c release --show-bin-path)
 
-          APP_NAME="ClaudeMeter"
+          APP_NAME="Thoth"
           APP_BUNDLE="$APP_NAME.app"
           ICON_SRC="icon/icon_1024.png"
 
@@ -63,7 +63,7 @@ jobs:
               <key>CFBundleName</key>
               <string>$APP_NAME</string>
               <key>CFBundleIdentifier</key>
-              <string>com.carloscosta.claudemeter</string>
+              <string>com.carloscosta.thoth</string>
               <key>CFBundleVersion</key>
               <string>$VERSION</string>
               <key>CFBundleShortVersionString</key>
@@ -86,5 +86,5 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          files: ClaudeMeter-*-mac.zip
+          files: Thoth-*-mac.zip
           generate_release_notes: true

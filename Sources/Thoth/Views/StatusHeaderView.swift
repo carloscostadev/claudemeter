@@ -9,7 +9,7 @@ struct StatusHeaderView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("ClaudeMeter")
+                Text("Thoth")
                     .font(.headline)
                     .foregroundStyle(.white)
                 Spacer()

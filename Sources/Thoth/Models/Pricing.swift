@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Models/Pricing.swift
+// Sources/Thoth/Models/Pricing.swift
 import Foundation
 
 struct ModelPricing {

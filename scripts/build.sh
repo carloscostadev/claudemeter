@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-APP_NAME="ClaudeMeter"
+APP_NAME="Thoth"
 BUILD_DIR="build"
 APP_BUNDLE="$BUILD_DIR/$APP_NAME.app"
 ICON_SRC="icon/icon_1024.png"
@@ -47,7 +47,7 @@ cat > "$APP_BUNDLE/Contents/Info.plist" << PLIST
     <key>CFBundleName</key>
     <string>$APP_NAME</string>
     <key>CFBundleIdentifier</key>
-    <string>com.carloscosta.claudemeter</string>
+    <string>com.carloscosta.thoth</string>
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>CFBundleShortVersionString</key>

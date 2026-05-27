@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Models/ActivityCategory.swift
+// Sources/Thoth/Models/ActivityCategory.swift
 import Foundation
 import SwiftUI
 

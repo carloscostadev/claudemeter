@@ -1,7 +1,7 @@
 import Foundation
 
 enum LaunchAtLogin {
-    private static let plistName = "com.carloscosta.claudemeter.plist"
+    private static let plistName = "com.carloscosta.thoth.plist"
 
     private static var plistPath: String {
         let home = NSHomeDirectory()
@@ -30,8 +30,8 @@ enum LaunchAtLogin {
         try? FileManager.default.createDirectory(atPath: launchAgentsDir, withIntermediateDirectories: true)
 
         let plist: [String: Any] = [
-            "Label": "com.carloscosta.claudemeter",
-            "ProgramArguments": [appPath + "/Contents/MacOS/ClaudeMeter"],
+            "Label": "com.carloscosta.thoth",
+            "ProgramArguments": [appPath + "/Contents/MacOS/Thoth"],
             "RunAtLoad": true,
             "KeepAlive": false,
         ]

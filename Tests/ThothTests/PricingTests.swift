@@ -1,6 +1,6 @@
-// Tests/ClaudeMeterTests/PricingTests.swift
+// Tests/ThothTests/PricingTests.swift
 import Testing
-@testable import ClaudeMeter
+@testable import Thoth
 
 @Test func opusPricingExists() {
     let pricing = ModelPricing.forModel("claude-opus-4-6")

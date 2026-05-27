@@ -1,7 +1,7 @@
-// Tests/ClaudeMeterTests/BurnRateTrackerTests.swift
+// Tests/ThothTests/BurnRateTrackerTests.swift
 import Foundation
 import Testing
-@testable import ClaudeMeter
+@testable import Thoth
 
 @Test func emptyTrackerReturnsZero() {
     let tracker = BurnRateTracker()

@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Models/TokenUsage.swift
+// Sources/Thoth/Models/TokenUsage.swift
 import Foundation
 
 struct TokenUsage: Codable {

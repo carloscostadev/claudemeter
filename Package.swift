@@ -2,17 +2,17 @@
 import PackageDescription
 
 let package = Package(
-    name: "ClaudeMeter",
+    name: "Thoth",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "ClaudeMeter",
-            path: "Sources/ClaudeMeter"
+            name: "Thoth",
+            path: "Sources/Thoth"
         ),
         .testTarget(
-            name: "ClaudeMeterTests",
-            dependencies: ["ClaudeMeter"],
-            path: "Tests/ClaudeMeterTests"
+            name: "ThothTests",
+            dependencies: ["Thoth"],
+            path: "Tests/ThothTests"
         )
     ]
 )

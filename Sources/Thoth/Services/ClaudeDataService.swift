@@ -1,4 +1,4 @@
-// Sources/ClaudeMeter/Services/ClaudeDataService.swift
+// Sources/Thoth/Services/ClaudeDataService.swift
 import Foundation
 import SwiftUI
 
@@ -100,7 +100,7 @@ final class ClaudeDataService {
     private var pollTimer: Timer?
     private var sessionTimer: Timer?
     private var analyticsTimer: Timer?
-    private let analyticsQueue = DispatchQueue(label: "com.carloscosta.claudemeter.analytics", qos: .utility)
+    private let analyticsQueue = DispatchQueue(label: "com.carloscosta.thoth.analytics", qos: .utility)
 
     private let claudeDir: String
 

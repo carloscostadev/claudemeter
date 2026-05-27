@@ -1,4 +1,4 @@
-# ClaudeMeter
+# Thoth
 
 A lightweight macOS menu bar app that turns the JSONL logs Claude Code already
 writes to disk into a live view of your usage — tokens, costs, activity
@@ -29,7 +29,7 @@ No API keys, no network requests, no telemetry. Everything is read locally from
 ## How it works
 
 Claude Code writes one JSONL file per session under
-`~/.claude/projects/<encoded-cwd>/<session-id>.jsonl`. ClaudeMeter watches that
+`~/.claude/projects/<encoded-cwd>/<session-id>.jsonl`. Thoth watches that
 tree and the `~/.claude/sessions/*.json` heartbeats, aggregates every
 `message.usage` block it finds, and prices it against a built-in rate card.
 
@@ -53,8 +53,8 @@ the main thread is reserved for SwiftUI updates.
 ## Install
 
 Download the latest `.zip` from
-[Releases](https://github.com/carloscostadev/claudemeter/releases), unzip,
-and drag `ClaudeMeter.app` to `/Applications`.
+[Releases](https://github.com/carloscostadev/thoth/releases), unzip,
+and drag `Thoth.app` to `/Applications`.
 
 The first launch will be quarantined by Gatekeeper because the binary isn't
 notarised — right-click the app and pick **Open** once to bypass it.

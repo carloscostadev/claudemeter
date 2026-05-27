@@ -1,7 +1,7 @@
 import AppKit
 import Foundation
 
-// Generate a 1024x1024 macOS-style icon for ClaudeMeter.
+// Generate a 1024x1024 macOS-style icon for Thoth.
 // Coral gradient background, rounded squircle, white gauge needle.
 
 let size: CGFloat = 1024
@@ -97,6 +97,6 @@ guard let tiff = img.tiffRepresentation,
       let png  = rep.representation(using: .png, properties: [:]) else {
     fputs("Failed to create PNG\n", stderr); exit(1)
 }
-let out = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "claudemeter_1024.png"
+let out = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "thoth_1024.png"
 try png.write(to: URL(fileURLWithPath: out))
 print("Wrote \(out)")

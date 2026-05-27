@@ -1,9 +1,9 @@
-// Sources/ClaudeMeter/ClaudeMeterApp.swift
+// Sources/Thoth/ThothApp.swift
 import SwiftUI
 import AppKit
 
 @main
-struct ClaudeMeterApp: App {
+struct ThothApp: App {
     @State private var service = ClaudeDataService()
 
     var body: some Scene {
